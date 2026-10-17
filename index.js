@@ -41,8 +41,11 @@ app.get("/users", async (req, res) => {
 });
 
 //post api:
-app.post("/users", (req, res) => {
+app.post("/users", async (req, res) => {
   const newUser = req.body;
+
+  const result = await users.insertOne(newUser);
+  res.send(result);
 
   console.log("adding new user", newUser);
 });
