@@ -24,11 +24,20 @@ export async function connectToMongoDB() {
     console.dir(err);
   }
 }
-await connectToMongoDB()
+const connectedClient = await connectToMongoDB();
+// Get the database and collection on which to run the operation
+const db = connectedClient.db("v3-crud-operation");
+const users = db.collection("users");
 
 //get api
 app.get("/", (req, res) => {
   res.send("Simple CRUD operation");
+});
+
+app.get("/users", async (req, res) => {
+  const cursor = users.find({});
+  const allUsers = await cursor.toArray();
+  res.send(allUsers);
 });
 
 app.listen(port, () => {
