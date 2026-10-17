@@ -40,6 +40,13 @@ app.get("/users", async (req, res) => {
   res.send(allUsers);
 });
 
+//post api:
+app.post("/users", (req, res) => {
+  const newUser = req.body;
+
+  console.log("adding new user", newUser);
+});
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
